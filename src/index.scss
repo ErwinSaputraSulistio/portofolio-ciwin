@@ -1,0 +1,156 @@
+// IMPORTS
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
+
+// VARIABLES
+$DefaultColor: rgb(85, 82, 82);
+
+// MIXINS
+@mixin Button($Border, $ButtonColor, $Height, $Radius, $Width) {
+   background: $ButtonColor;
+   border: $Border;
+   border-radius: $Radius;
+   height: $Height;
+   transition-duration: 0.25s;
+   width: $Width;
+}
+@mixin Font($Family, $Size, $Weight) {
+   color: $DefaultColor;
+   font-family: $Family;
+   font-size: $Size;
+   font-weight: $Weight;
+   margin: 0;
+   padding: 0;
+}
+@mixin FlexCenterize($Flex, $Align, $Justify) {
+   align-items: $Align;
+   display: flex;
+   flex-direction: $Flex;
+   justify-content: $Justify;
+}
+@mixin TypingText {
+   animation: typingTextEffect 777ms steps(44) infinite normal, zeroToOneOpacity 3s;
+   border-right: 2px solid $DefaultColor;
+}
+
+// ANIMATIONS
+@keyframes bottomFadeIn {
+   from { margin-bottom: -5vh; }
+   to { margin-bottom: 5vh; }
+}
+@keyframes typingTextEffect {
+   from{ border-right-color: $DefaultColor; }
+   to{ border-right-color: transparent; }
+}
+@keyframes zeroToOneOpacity {
+   from { opacity: 0; }
+   to { opacity: 1; }
+}
+
+// CLASSES
+   body {
+      overflow: hidden;
+      text-overflow: ellipsis;
+   }
+   .landingPage {
+      @include FlexCenterize(column, center, space-between);
+      height: 100vh;
+      width: 100vw;
+   }
+   .navbarArea {
+      @include FlexCenterize(row, center, center);
+      bottom: 0px;
+      position: absolute;
+   }
+   .navbarButton:hover, .shuffle:hover {
+      cursor: pointer;
+      opacity: 0.5;
+   }
+   .shuffle {
+      @include Button(1px solid black, $DefaultColor, 1vw, 0.5vw, 5vw);
+      @include FlexCenterize(row, center, center);
+      color: white;
+      font-family: 'Poppins';
+      font-size: 1vw;
+      margin-top: 1vw;
+      padding: 0.5vw;
+   }
+   .skill, .welcome {
+      height: 100%;
+      position: absolute;
+   }
+   .skill {
+      @include FlexCenterize(column, center, center);
+   }
+   .skillCollection {
+      height: 90%;
+   }
+   .skillCard {
+      @include FlexCenterize(column, center, center);
+      @include Button(none, $DefaultColor, 10vw, 1vw, 8vw);
+      position: absolute;
+      background-color: transparent;
+      perspective: 1000px;
+   }
+   .skillCardInner {
+      border: 1px solid black;
+      border-radius: 0.5vw;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition-duration: 0.5s;
+      transform-style: preserve-3d;
+   }
+   .skillCard:hover .skillCardInner {
+      transform: rotateY(180deg);
+    }
+   .welcome {
+      @include FlexCenterize(row, center, center);
+   }
+    /* Position the front and back side */
+    .skillCardFront, .skillCardBack {
+      border-radius: 0.5vw;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden; /* Safari */
+      backface-visibility: hidden;
+    }
+    
+    /* Style the front side (fallback if image is missing) */
+    .skillCardFront {
+      background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwUj__NyM09uRckJrCgJsYcKIMbXYWX_glyQ&usqp=CAU");
+      background-size: 8vw 10vw;
+      color: black;
+      filter: contrast(100%) grayscale(100%);
+    }
+    
+    /* Style the back side */
+    .skillCardBack {
+      @include FlexCenterize(column, center, center);
+      transform: rotateY(180deg);
+    }
+    .skillCardImage {
+       height: 60%;
+       width: 70%;
+    }
+@media(min-width: 768px) {
+   .navbarArea {
+      animation: bottomFadeIn 1s, zeroToOneOpacity 3s;
+      margin-bottom: 5vh;
+   }
+   .navbarButton {
+      @include Button(6px solid $DefaultColor, white, 1.5vw, 50%, 1.5vw);
+   }
+   .navbarLine {
+      border-top: 3px solid $DefaultColor;
+      width: 5vw;
+   }
+   .titleText {
+      @include Font('Poppins', 1.5vw, bold);
+      @include TypingText;
+   }
+}
+@media(max-width: 768px) {
+
+}
